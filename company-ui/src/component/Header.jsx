@@ -86,6 +86,114 @@ const Header = (props) => {
             </ListItemButton>
           </ListItem>
         ))}
+        {/* Additional items for Shop, Login, Logout */}
+        {userRole !== "user" && userRole !== "admin" && (
+          <>
+            <ListItem disablePadding>
+              <ListItemButton
+                sx={{ textAlign: "center" }}
+                onClick={() => {
+                  navigate("/shop");
+                }}
+              >
+                <ListItemText primary="Shop" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                sx={{ textAlign: "center" }}
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                <ListItemText primary="Login" />
+              </ListItemButton>
+            </ListItem>
+          </>
+        )}
+        {userRole === "user" && (
+          <>
+            <ListItem disablePadding>
+              <ListItemButton
+                sx={{ textAlign: "center" }}
+                onClick={() => {
+                  navigate("/products");
+                }}
+              >
+                <ListItemText primary="Shop" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                sx={{ textAlign: "center" }}
+                onClick={() => {
+                  navigate("/cart");
+                }}
+              >
+                <Badge
+                  badgeContent={cartItemCount}
+                  color="success"
+                  sx={{ mr: 2 }}
+                >
+                  <ShoppingCartOutlinedIcon />
+                </Badge>
+                <ListItemText primary="Cart" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <Typography
+                sx={{ textAlign: "center", fontWeight: "bold", mt: 1 }}
+              >
+                Hi, {localStorage.getItem("firstName")}
+              </Typography>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                sx={{ textAlign: "center" }}
+                onClick={() => {
+                  navigate("/home");
+                  localStorage.clear();
+                }}
+              >
+                <LogoutIcon sx={{ mr: 2 }} />
+                <ListItemText primary="Logout" />
+              </ListItemButton>
+            </ListItem>
+          </>
+        )}
+        {userRole === "admin" && (
+          <>
+            <ListItem disablePadding>
+              <ListItemButton
+                sx={{ textAlign: "center" }}
+                onClick={() => {
+                  navigate("/products");
+                }}
+              >
+                <ListItemText primary="Shop" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <Typography
+                sx={{ textAlign: "center", fontWeight: "bold", mt: 1 }}
+              >
+                Hi, {localStorage.getItem("firstName")}
+              </Typography>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                sx={{ textAlign: "center" }}
+                onClick={() => {
+                  navigate("/home");
+                  localStorage.clear();
+                }}
+              >
+                <LogoutIcon sx={{ mr: 2 }} />
+                <ListItemText primary="Logout" />
+              </ListItemButton>
+            </ListItem>
+          </>
+        )}
       </List>
     </Box>
   );
