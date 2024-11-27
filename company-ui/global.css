@@ -1,0 +1,7 @@
+/* Optional: if you want to target specific elements like the body or #root, you can add them here */
+body,
+#root {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}

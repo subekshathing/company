@@ -1,0 +1,83 @@
+import { Box, Button, Pagination } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import $axios from "../../../lib/axios/axios.instance";
+import Loader from "../../../component/Loader";
+import ProductCard from "../../../component/ProductCard";
+
+const AdminProductList = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const navigate = useNavigate();
+
+  const { isPending, data } = useQuery({
+    queryKey: ["get-admin-products", currentPage],
+    queryFn: async () => {
+      return await $axios.post("/product/list/admin", {
+        page: currentPage,
+        limit: 8
+      });
+    }
+  });
+
+  const productList = data?.data?.productList;
+  const totalPage = data?.data?.totalPage;
+
+  if (isPending) {
+    return <Loader />;
+  }
+  return (
+    <>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "1rem",
+          margin: "4rem 0",
+          padding: "2rem"
+        }}
+      >
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => {
+            navigate("/add-product");
+          }}
+          sx={{ marginBottom: "2rem" }}
+        >
+          add product
+        </Button>
+
+        {productList.length === 0}
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "3rem",
+            mb: "2rem"
+          }}
+        >
+          {productList.map((item) => {
+            return <ProductCard key={item._id} {...item} />;
+          })}
+        </Box>
+
+        <Pagination
+          count={totalPage}
+          color="secondary"
+          page={currentPage}
+          onChange={(_, value) => {
+            setCurrentPage(value);
+          }}
+        />
+      </Box>
+    </>
+  );
+};
+
+export default AdminProductList;

@@ -1,0 +1,137 @@
+import SearchIcon from "@mui/icons-material/Search";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputAdornment,
+  OutlinedInput,
+  Pagination,
+  Stack
+} from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
+import React, { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { debounce } from "lodash";
+import $axios from "../../../lib/axios/axios.instance";
+import Loader from "../../../component/Loader";
+import ProductCard from "../../../component/ProductCard";
+import { clearFilter } from "../../../store/slices/productSlice";
+import ProductFilterDialog from "../../../component/ProductFilterDialog";
+
+const UserProductList = () => {
+  const [searchText, setSearchText] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const dispatch = useDispatch();
+
+  const { category, minPrice, maxPrice, isFilterApplied } = useSelector(
+    (state) => state.product
+  );
+
+  const { isPending, data } = useQuery({
+    queryKey: [
+      "get-buyer-products",
+      currentPage,
+      searchText,
+      category,
+      minPrice,
+      maxPrice
+    ],
+    queryFn: async () => {
+      return await $axios.post("/product/list/user", {
+        page: currentPage,
+        limit: 6,
+        searchText: searchText || null,
+        category: category || null,
+        minPrice: minPrice || 0,
+        maxPrice: maxPrice || 0
+      });
+    }
+  });
+
+  const productList = data?.data?.productList;
+  const totalPage = data?.data?.totalPage;
+
+  const updateSearchText = (text) => {
+    setSearchText(text);
+    setCurrentPage(1);
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const delayedUpdateSearchText = useCallback(debounce(updateSearchText, 500), [
+    searchText
+  ]);
+
+  if (isPending) {
+    return <Loader />;
+  }
+  return (
+    <>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "1rem",
+          margin: "4rem 0",
+          padding: "2rem"
+        }}
+      >
+        <Stack direction="row" spacing={4}>
+          {isFilterApplied && (
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => {
+                dispatch(clearFilter());
+              }}
+            >
+              Clear Filter
+            </Button>
+          )}
+          <ProductFilterDialog />
+          <FormControl variant="standard">
+            <OutlinedInput
+              defaultValue={searchText || ""}
+              onChange={(event) => {
+                delayedUpdateSearchText(event.target.value);
+              }}
+              placeholder="Search products here..."
+              startAdornment={
+                <InputAdornment position="start" sx={{ color: "green" }}>
+                  <SearchIcon sx={{ fontSize: "2rem" }} />
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+        </Stack>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "3rem",
+            margin: "2rem 0"
+          }}
+        >
+          {productList.map((item) => {
+            return <ProductCard key={item._id} {...item} />;
+          })}
+        </Box>
+        <Pagination
+          page={currentPage}
+          count={totalPage}
+          color="secondary"
+          onChange={(_, value) => {
+            setCurrentPage(value);
+          }}
+        />
+      </Box>
+    </>
+  );
+};
+
+export default UserProductList;
