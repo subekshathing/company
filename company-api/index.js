@@ -13,11 +13,17 @@ app.use(express.json());
 // enable cors
 // Cross origin Resource Sharing
 
+// const corsOptions = {
+//   origin: "*",
+//   optionsSuccessStatus: 200
+// };
+
 const corsOptions = {
-  origin: "*",
+  origin: ["https://company-ui.onrender.com"],
+  methods: "GET,PUT,POST,DELETE",
+  credentials: true,
   optionsSuccessStatus: 200
 };
-
 app.use(cors(corsOptions));
 
 // connect database
