@@ -14,7 +14,9 @@ app.use(express.json());
 // Cross origin Resource Sharing
 
 const corsOptions = {
-  origin: "*",
+  origin: ["https://company-ui.onrender.com"],
+  methods: "GET,PUT,POST,DELETE",
+  credentials: true,
   optionsSuccessStatus: 200
 };
 
