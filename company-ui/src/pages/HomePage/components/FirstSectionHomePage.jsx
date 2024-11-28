@@ -9,13 +9,11 @@ const HomePage = () => {
     <Box
       component="header"
       sx={{
-        padding: "2rem 1rem",
+        padding: "5rem 1rem",
         display: "flex",
         gap: "2rem",
-
         mt: "3rem",
         flexDirection: { xs: "column-reverse", sm: "row" }, // Stack image above text on small screens, side-by-side on large
-
         backgroundImage: `url(${backgroundImage})`, // Adding background image
         backgroundSize: "cover",
         backgroundPosition: "center",

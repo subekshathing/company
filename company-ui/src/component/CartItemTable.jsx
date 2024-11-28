@@ -87,13 +87,16 @@ const CartItemTable = ({ cartData }) => {
     });
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box
+      sx={{
+        width: "100%",
+        border: "2px solid #3498"
+      }}
+    >
       <TableContainer
         component={Paper}
         sx={{
-          width: isSmallScreen ? "100%" : "70%", // Full width on small screens
-          boxShadow:
-            "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px"
+          width: isSmallScreen ? "100%" : "100%" // Full width on small screens
         }}
       >
         {(removeSingleItemFromCartPending ||

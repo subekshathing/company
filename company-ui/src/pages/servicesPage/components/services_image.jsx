@@ -4,15 +4,18 @@ import backgroundImg from "../../../assets/background/service.jpg";
 
 function ServiceImage() {
   return (
-    <div
-      style={{
-        backgroundImage: `url(${backgroundImg})`,
-        backgroundSize: "cover", // Ensure the background covers the whole div
-        backgroundPosition: "center", // Center the background image
-        height: "100vh", // Full viewport height
-        display: "flex", // Use flexbox to center the content
-        justifyContent: "center", // Center horizontally
-        alignItems: "center" // Center vertically
+    <Box
+      sx={{
+        padding: "5rem 1rem",
+        display: "flex",
+        gap: "2rem",
+        mt: "3rem",
+        flexDirection: { xs: "column-reverse", sm: "row" }, // Stack image above text on small screens, side-by-side on large
+        backgroundImage: `url(${backgroundImg})`, // Adding background image
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        width: "100%", // Make the background span the full width
+        position: "relative" // Ensure the background image covers the entire area
       }}
     >
       <Box
@@ -68,7 +71,7 @@ function ServiceImage() {
           your unique requirements.
         </Typography>
       </Box>
-    </div>
+    </Box>
   );
 }
 

@@ -19,29 +19,14 @@ import { Badge, Tooltip } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useQuery } from "@tanstack/react-query";
 import $axios from "../lib/axios/axios.instance";
+
 const drawerWidth = 240;
 const navItems = [
-  {
-    id: 1,
-    name: "Home",
-    path: "/"
-  },
-
-  {
-    id: 2,
-    name: "About Us",
-    path: "/about"
-  },
-  {
-    id: 3,
-    name: "Service",
-    path: "/services"
-  },
-  {
-    id: 4,
-    name: "Contact",
-    path: "/contact"
-  }
+  { id: 1, name: "Home", path: "/" },
+  { id: 2, name: "About Us", path: "/about" },
+  { id: 3, name: "Service", path: "/services" },
+  { id: 4, name: "Contact", path: "/contact" },
+  { id: 5, name: "Shop", path: "/shop" }
 ];
 
 const Header = (props) => {
@@ -49,14 +34,14 @@ const Header = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  // get user role
+  // Get user role
   const userRole = localStorage.getItem("role");
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
-  // get cart item count
+  // Fetch cart item count
   const { isPending, data } = useQuery({
     queryKey: ["get-cart-item-count"],
     queryFn: async () => {
@@ -78,122 +63,12 @@ const Header = (props) => {
           <ListItem key={item.id} disablePadding>
             <ListItemButton
               sx={{ textAlign: "center" }}
-              onClick={() => {
-                navigate(item.path);
-              }}
+              onClick={() => navigate(item.path)}
             >
               <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
         ))}
-        {/* Additional items for Shop, Login, Logout */}
-        {userRole !== "user" && userRole !== "admin" && (
-          <>
-            <ListItem disablePadding>
-              <ListItemButton
-                sx={{ textAlign: "center" }}
-                onClick={() => {
-                  navigate("/shop");
-                }}
-              >
-                <ListItemText primary="Shop" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton
-                sx={{ textAlign: "center" }}
-                onClick={() => {
-                  navigate("/login");
-                }}
-              >
-                <ListItemText primary="Login" />
-              </ListItemButton>
-            </ListItem>
-          </>
-        )}
-        {userRole === "user" && (
-          <>
-            <ListItem disablePadding>
-              <ListItemButton
-                sx={{ textAlign: "center" }}
-                onClick={() => {
-                  navigate("/products");
-                }}
-              >
-                <ListItemText primary="Shop" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton
-                sx={{ textAlign: "center" }}
-                onClick={() => {
-                  navigate("/cart");
-                }}
-              >
-                <Badge
-                  badgeContent={cartItemCount}
-                  color="success"
-                  sx={{ mr: 2 }}
-                >
-                  <ShoppingCartOutlinedIcon />
-                </Badge>
-                <ListItemText primary="Cart" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <Typography
-                sx={{ textAlign: "center", fontWeight: "bold", mt: 1 }}
-              >
-                Hi, {localStorage.getItem("firstName")}
-              </Typography>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton
-                sx={{ textAlign: "center" }}
-                onClick={() => {
-                  navigate("/home");
-                  localStorage.clear();
-                }}
-              >
-                <LogoutIcon sx={{ mr: 2 }} />
-                <ListItemText primary="Logout" />
-              </ListItemButton>
-            </ListItem>
-          </>
-        )}
-        {userRole === "admin" && (
-          <>
-            <ListItem disablePadding>
-              <ListItemButton
-                sx={{ textAlign: "center" }}
-                onClick={() => {
-                  navigate("/products");
-                }}
-              >
-                <ListItemText primary="Shop" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <Typography
-                sx={{ textAlign: "center", fontWeight: "bold", mt: 1 }}
-              >
-                Hi, {localStorage.getItem("firstName")}
-              </Typography>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton
-                sx={{ textAlign: "center" }}
-                onClick={() => {
-                  navigate("/home");
-                  localStorage.clear();
-                }}
-              >
-                <LogoutIcon sx={{ mr: 2 }} />
-                <ListItemText primary="Logout" />
-              </ListItemButton>
-            </ListItem>
-          </>
-        )}
       </List>
     </Box>
   );
@@ -217,6 +92,7 @@ const Header = (props) => {
             justifyContent: "space-between"
           }}
         >
+          {/* Menu Icon for Mobile */}
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -226,6 +102,8 @@ const Header = (props) => {
           >
             <MenuIcon />
           </IconButton>
+
+          {/* Title */}
           <Typography
             variant="h6"
             component="div"
@@ -233,65 +111,57 @@ const Header = (props) => {
           >
             R Krishi & Pashu Firm
           </Typography>
+
+          {/* Navbar for larger screens */}
           <Box
             sx={{
-              display: { xs: "none", sm: "flex" },
-              alignItems: "center", // Center content vertically
-              gap: "1rem" // Add spacing between buttons
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+              flexGrow: 1
             }}
           >
             {navItems.map((item) => (
               <Button
                 key={item.id}
-                sx={{ color: "#fff", fontWeight: "bold" }}
-                onClick={() => {
-                  navigate(item.path);
+                sx={{
+                  color: "#fff",
+                  fontWeight: "bold",
+                  display: { xs: "none", sm: "block" }
                 }}
+                onClick={() => navigate(item.path)}
               >
                 {item.name}
               </Button>
             ))}
-            {userRole !== "user" && userRole !== "admin" && (
-              <>
-                <Button
-                  sx={{ color: "#fff", fontWeight: "500" }}
-                  onClick={() => {
-                    navigate("/shop");
-                  }}
-                >
-                  Shop
-                </Button>
-                <Button
-                  sx={{ color: "#fff", fontWeight: "bold" }}
-                  onClick={() => {
-                    navigate("/login");
-                  }}
-                >
-                  Login
-                </Button>
-              </>
-            )}
+          </Box>
+
+          {/* Cart, Login, Hi Sections Always in Navbar */}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+              ml: "auto"
+            }}
+          >
             {userRole === "user" && (
               <>
-                <Button
-                  sx={{ color: "#fff" }}
-                  onClick={() => {
-                    navigate("/products");
-                  }}
-                >
-                  Shop
-                </Button>
                 <IconButton
                   sx={{ color: "#fff" }}
-                  onClick={() => {
-                    navigate("/cart");
-                  }}
+                  onClick={() => navigate("/cart")}
                 >
                   <Badge badgeContent={cartItemCount} color="success">
                     <ShoppingCartOutlinedIcon />
                   </Badge>
                 </IconButton>
-                <Typography sx={{ margin: "1rem", fontWeight: "bold" }}>
+                <Typography
+                  sx={{
+                    display: "block",
+                    color: "#fff",
+                    fontWeight: "bold"
+                  }}
+                >
                   Hi, {localStorage.getItem("firstName")}
                 </Typography>
                 <Tooltip title="Logout">
@@ -309,15 +179,13 @@ const Header = (props) => {
             )}
             {userRole === "admin" && (
               <>
-                <Button
-                  sx={{ color: "#fff" }}
-                  onClick={() => {
-                    navigate("/products");
+                <Typography
+                  sx={{
+                    display: "block",
+                    color: "#fff",
+                    fontWeight: "bold"
                   }}
                 >
-                  Shop
-                </Button>
-                <Typography sx={{ m: "1rem", fontWeight: "bold" }}>
                   Hi, {localStorage.getItem("firstName")}
                 </Typography>
                 <Tooltip title="Logout">
@@ -333,9 +201,19 @@ const Header = (props) => {
                 </Tooltip>
               </>
             )}
+            {(!userRole || userRole === "guest") && (
+              <Button
+                sx={{ color: "#fff", fontWeight: "bold" }}
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </Button>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
+
+      {/* Drawer for Small Screens */}
       <nav>
         <Drawer
           container={container}
@@ -343,7 +221,7 @@ const Header = (props) => {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true // Better open performance on mobile.
+            keepMounted: true
           }}
           sx={{
             display: { xs: "block", sm: "none" },
@@ -356,6 +234,7 @@ const Header = (props) => {
           {drawer}
         </Drawer>
       </nav>
+
       {/* Content below the AppBar */}
       <Box sx={{ flexGrow: 1 }}>{props.children}</Box>
     </Box>

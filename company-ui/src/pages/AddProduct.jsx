@@ -116,137 +116,150 @@ const AddProduct = () => {
           }}
         >
           {(formik) => (
-            <form
-              onSubmit={formik.handleSubmit}
-              style={{
+            <Box
+              sx={{
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-around",
                 alignItems: "center",
                 padding: "1rem",
-                gap: "1rem",
-                width: "450px",
-                boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
+                gap: "4rem",
+                width: { xs: "100%", sm: "80%", md: "60%", lg: "40%" }, // Responsive width
+                boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+                margin: "0 auto" // Center form horizontally
               }}
             >
-              <Typography variant="h5">Add Product</Typography>
-
-              {localUrl && (
-                <Stack sx={{ height: "250px" }}>
-                  <img src={localUrl} alt="" height="100%" />
-                </Stack>
-              )}
-
-              <FormControl>
-                <input
-                  type="file"
-                  onChange={(event) => {
-                    const file = event.target.files[0];
-
-                    setProductImage(file);
-
-                    setLocalUrl(URL.createObjectURL(file));
-                  }}
-                />
-              </FormControl>
-
-              <FormControl fullWidth>
-                <TextField
-                  label="Name"
-                  {...formik.getFieldProps("name")}
-                  required
-                />
-
-                {formik.touched.name && formik.errors.name ? (
-                  <FormHelperText error>{formik.errors.name}</FormHelperText>
-                ) : null}
-              </FormControl>
-              <FormControl fullWidth>
-                <TextField
-                  label="Brand"
-                  {...formik.getFieldProps("brand")}
-                  required
-                />
-
-                {formik.touched.brand && formik.errors.brand ? (
-                  <FormHelperText error>{formik.errors.brand}</FormHelperText>
-                ) : null}
-              </FormControl>
-
-              <FormControl fullWidth>
-                <InputLabel>Price</InputLabel>
-                <OutlinedInput
-                  startAdornment={
-                    <InputAdornment position="start">Rs.</InputAdornment>
-                  }
-                  label="Price"
-                  {...formik.getFieldProps("price")}
-                />
-              </FormControl>
-              <FormControl fullWidth>
-                <TextField
-                  label="Quantity"
-                  {...formik.getFieldProps("availableQuantity")}
-                  type="number"
-                  required
-                />
-
-                {formik.touched.availableQuantity &&
-                formik.errors.availableQuantity ? (
-                  <FormHelperText error>
-                    {formik.errors.availableQuantity}
-                  </FormHelperText>
-                ) : null}
-              </FormControl>
-              <FormControl fullWidth>
-                <FormControlLabel
-                  control={
-                    <Checkbox {...formik.getFieldProps("freeShipping")} />
-                  }
-                  label="Free Shipping"
-                />
-              </FormControl>
-              <FormControl fullWidth required>
-                <InputLabel>Category</InputLabel>
-                <Select label="Category" {...formik.getFieldProps("category")}>
-                  {productCategories.map((item, index) => {
-                    return (
-                      <MenuItem key={index} value={item}>
-                        {item}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-
-                {formik.touched.category && formik.errors.category ? (
-                  <FormHelperText error>
-                    {formik.errors.category}
-                  </FormHelperText>
-                ) : null}
-              </FormControl>
-              <FormControl fullWidth>
-                <TextField
-                  required
-                  multiline
-                  rows={4}
-                  label="Description"
-                  {...formik.getFieldProps("description")}
-                />
-                {formik.touched.description && formik.errors.description ? (
-                  <FormHelperText error>
-                    {formik.errors.description}
-                  </FormHelperText>
-                ) : null}
-              </FormControl>
-              <Button
-                fullWidth
-                type="submit"
-                variant="contained"
-                color="success"
+              <form
+                onSubmit={formik.handleSubmit}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1rem",
+                  width: "100%"
+                }}
               >
-                Submit
-              </Button>
-            </form>
+                <Typography variant="h5">Add Product</Typography>
+
+                {localUrl && (
+                  <Stack sx={{ height: "250px" }}>
+                    <img src={localUrl} alt="" height="100%" />
+                  </Stack>
+                )}
+
+                <FormControl>
+                  <input
+                    type="file"
+                    onChange={(event) => {
+                      const file = event.target.files[0];
+
+                      setProductImage(file);
+
+                      setLocalUrl(URL.createObjectURL(file));
+                    }}
+                  />
+                </FormControl>
+
+                <FormControl fullWidth>
+                  <TextField
+                    label="Name"
+                    {...formik.getFieldProps("name")}
+                    required
+                  />
+
+                  {formik.touched.name && formik.errors.name ? (
+                    <FormHelperText error>{formik.errors.name}</FormHelperText>
+                  ) : null}
+                </FormControl>
+                <FormControl fullWidth>
+                  <TextField
+                    label="Brand"
+                    {...formik.getFieldProps("brand")}
+                    required
+                  />
+
+                  {formik.touched.brand && formik.errors.brand ? (
+                    <FormHelperText error>{formik.errors.brand}</FormHelperText>
+                  ) : null}
+                </FormControl>
+
+                <FormControl fullWidth>
+                  <InputLabel>Price</InputLabel>
+                  <OutlinedInput
+                    startAdornment={
+                      <InputAdornment position="start">Rs.</InputAdornment>
+                    }
+                    label="Price"
+                    {...formik.getFieldProps("price")}
+                  />
+                </FormControl>
+                <FormControl fullWidth>
+                  <TextField
+                    label="Quantity"
+                    {...formik.getFieldProps("availableQuantity")}
+                    type="number"
+                    required
+                  />
+
+                  {formik.touched.availableQuantity &&
+                  formik.errors.availableQuantity ? (
+                    <FormHelperText error>
+                      {formik.errors.availableQuantity}
+                    </FormHelperText>
+                  ) : null}
+                </FormControl>
+                <FormControl fullWidth>
+                  <FormControlLabel
+                    control={
+                      <Checkbox {...formik.getFieldProps("freeShipping")} />
+                    }
+                    label="Free Shipping"
+                  />
+                </FormControl>
+                <FormControl fullWidth required>
+                  <InputLabel>Category</InputLabel>
+                  <Select
+                    label="Category"
+                    {...formik.getFieldProps("category")}
+                  >
+                    {productCategories.map((item, index) => {
+                      return (
+                        <MenuItem key={index} value={item}>
+                          {item}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+
+                  {formik.touched.category && formik.errors.category ? (
+                    <FormHelperText error>
+                      {formik.errors.category}
+                    </FormHelperText>
+                  ) : null}
+                </FormControl>
+                <FormControl fullWidth>
+                  <TextField
+                    required
+                    multiline
+                    rows={4}
+                    label="Description"
+                    {...formik.getFieldProps("description")}
+                  />
+                  {formik.touched.description && formik.errors.description ? (
+                    <FormHelperText error>
+                      {formik.errors.description}
+                    </FormHelperText>
+                  ) : null}
+                </FormControl>
+                <Button
+                  fullWidth
+                  type="submit"
+                  variant="contained"
+                  color="success"
+                >
+                  Submit
+                </Button>
+              </form>
+            </Box>
           )}
         </Formik>
       </Box>

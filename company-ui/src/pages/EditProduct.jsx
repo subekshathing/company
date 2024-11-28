@@ -33,16 +33,14 @@ import {
 const EditProduct = () => {
   const [productImage, setProductImage] = useState(null);
   const [localUrl, setLocalUrl] = useState("");
-
   const [imageUploadLoading, setImageUploadLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
-
   const productId = params?.id;
 
-  //   fetch product details
+  // Fetch product details
   const { isPending, data } = useQuery({
     queryKey: ["get-product-details"],
     queryFn: async () => {
@@ -52,7 +50,7 @@ const EditProduct = () => {
 
   const productDetail = data?.data?.productDetail;
 
-  //   edit product api hit
+  // Edit product API hit
   const { isPending: editProductPending, mutate } = useMutation({
     mutationKey: ["edit-product"],
     mutationFn: async (values) => {
@@ -70,8 +68,16 @@ const EditProduct = () => {
   if (isPending || imageUploadLoading || editProductPending) {
     return <Loader />;
   }
+
   return (
-    <Box>
+    <Box
+      sx={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        padding: { xs: "1rem", sm: "2rem" } // Responsive padding
+      }}
+    >
       <Formik
         enableReinitialize
         initialValues={{
@@ -90,9 +96,7 @@ const EditProduct = () => {
           if (productImage) {
             const cloudName = "dlkcko4n6";
             const uploadPreset = "nepal_emart";
-
             const data = new FormData();
-
             data.append("file", productImage);
             data.append("cloud_name", cloudName);
             data.append("upload_preset", uploadPreset);
@@ -103,15 +107,10 @@ const EditProduct = () => {
                 `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
                 data
               );
-
-              console.log(response);
-
               setImageUploadLoading(false);
-
               imageUrl = response?.data?.secure_url;
             } catch (error) {
               setImageUploadLoading(false);
-
               console.log(error.message);
             }
           }
@@ -130,21 +129,38 @@ const EditProduct = () => {
               alignItems: "center",
               padding: "1rem",
               gap: "1rem",
-              width: "450px",
-              boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
+              width: "100%",
+              maxWidth: "600px", // Max width for larger screens
+              boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+              borderRadius: "8px"
             }}
           >
-            <Typography variant="h5">Edit Product</Typography>
+            <Typography variant="h5" sx={{ textAlign: "center" }}>
+              Edit Product
+            </Typography>
 
-            <Stack sx={{ height: "250px" }}>
+            <Stack
+              sx={{
+                height: "250px",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: "1rem"
+              }}
+            >
               <img
                 src={localUrl || productDetail?.image || fallbackImage}
-                alt=""
-                height="100%"
+                alt="Product"
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  objectFit: "contain"
+                }}
               />
             </Stack>
 
-            <FormControl>
+            <FormControl sx={{ width: "100%" }}>
               <input
                 type="file"
                 onChange={(event) => {
@@ -161,22 +177,22 @@ const EditProduct = () => {
                 {...formik.getFieldProps("name")}
                 required
               />
-
-              {formik.touched.name && formik.errors.name ? (
+              {formik.touched.name && formik.errors.name && (
                 <FormHelperText error>{formik.errors.name}</FormHelperText>
-              ) : null}
+              )}
             </FormControl>
+
             <FormControl fullWidth>
               <TextField
                 label="Brand"
                 {...formik.getFieldProps("brand")}
                 required
               />
-
-              {formik.touched.brand && formik.errors.brand ? (
+              {formik.touched.brand && formik.errors.brand && (
                 <FormHelperText error>{formik.errors.brand}</FormHelperText>
-              ) : null}
+              )}
             </FormControl>
+
             <FormControl fullWidth>
               <TextField
                 label="Price"
@@ -184,11 +200,11 @@ const EditProduct = () => {
                 type="number"
                 required
               />
-
-              {formik.touched.price && formik.errors.price ? (
+              {formik.touched.price && formik.errors.price && (
                 <FormHelperText error>{formik.errors.price}</FormHelperText>
-              ) : null}
+              )}
             </FormControl>
+
             <FormControl fullWidth>
               <TextField
                 label="Quantity"
@@ -196,14 +212,14 @@ const EditProduct = () => {
                 type="number"
                 required
               />
-
               {formik.touched.availableQuantity &&
-              formik.errors.availableQuantity ? (
-                <FormHelperText error>
-                  {formik.errors.availableQuantity}
-                </FormHelperText>
-              ) : null}
+                formik.errors.availableQuantity && (
+                  <FormHelperText error>
+                    {formik.errors.availableQuantity}
+                  </FormHelperText>
+                )}
             </FormControl>
+
             <FormControl fullWidth>
               <FormControlLabel
                 control={
@@ -217,22 +233,21 @@ const EditProduct = () => {
                 label="Free Shipping"
               />
             </FormControl>
+
             <FormControl fullWidth required>
               <InputLabel>Category</InputLabel>
               <Select label="Category" {...formik.getFieldProps("category")}>
-                {productCategories.map((item, index) => {
-                  return (
-                    <MenuItem key={index} value={item}>
-                      {item}
-                    </MenuItem>
-                  );
-                })}
+                {productCategories.map((item, index) => (
+                  <MenuItem key={index} value={item}>
+                    {item}
+                  </MenuItem>
+                ))}
               </Select>
-
-              {formik.touched.category && formik.errors.category ? (
+              {formik.touched.category && formik.errors.category && (
                 <FormHelperText error>{formik.errors.category}</FormHelperText>
-              ) : null}
+              )}
             </FormControl>
+
             <FormControl fullWidth>
               <TextField
                 required
@@ -241,12 +256,13 @@ const EditProduct = () => {
                 label="Description"
                 {...formik.getFieldProps("description")}
               />
-              {formik.touched.description && formik.errors.description ? (
+              {formik.touched.description && formik.errors.description && (
                 <FormHelperText error>
                   {formik.errors.description}
                 </FormHelperText>
-              ) : null}
+              )}
             </FormControl>
+
             <Button fullWidth type="submit" variant="contained" color="success">
               Submit
             </Button>

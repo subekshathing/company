@@ -52,15 +52,16 @@ const About = () => {
     <Box sx={{ padding: "0" }}>
       <Box
         sx={{
-          padding: "2rem",
-          textAlign: "center",
-          backgroundImage: `url(${backgroundImg})`, // Use the local image
+          padding: "5rem 1rem",
+          display: "flex",
+          gap: "2rem",
+          mt: "3rem",
+          flexDirection: { xs: "column-reverse", sm: "row" }, // Stack image above text on small screens, side-by-side on large
+          backgroundImage: `url(${backgroundImg})`, // Adding background image
           backgroundSize: "cover",
           backgroundPosition: "center",
-          minHeight: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center"
+          width: "100%", // Make the background span the full width
+          position: "relative" // Ensure the background image covers the entire area
         }}
       >
         <Box
