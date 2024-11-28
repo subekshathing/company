@@ -1,7 +1,7 @@
 import React from "react";
-import OurServicesCard from "./components/services_list";
+
 import ServiceImage from "./components/services_image";
-import OurServices from "../HomePage/components/SecondSection";
+import OurServices from "./components/services_list";
 
 const Service = () => {
   return (

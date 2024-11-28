@@ -10,9 +10,37 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom"; // Assuming you're using React Router for navigation
 import { motion } from "framer-motion";
-import { products } from "../../../../src/data.js"; // Importing the products data
+import apple from "../../../assets/images/apple.jpg";
+import egg from "../../../assets/images/egg.jpg";
+import carrot from "../../../assets/images/carrot.jpg";
 
 const OurProducts = () => {
+  // src/data.js
+  const products = [
+    {
+      id: 1,
+      name: "Organic Apples",
+      description: "Fresh and juicy organic apples.",
+      price: "$5.99",
+      image: apple
+    },
+    {
+      id: 2,
+      name: "Farm Fresh Eggs",
+      description: "Cage-free farm fresh eggs.",
+      price: "$3.99",
+      image: egg
+    },
+    {
+      id: 3,
+      name: "Organic Carrots",
+      description: "Crunchy and sweet organic carrots.",
+      price: "$4.49",
+      image: carrot
+    }
+    // Add more products as needed
+  ];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}

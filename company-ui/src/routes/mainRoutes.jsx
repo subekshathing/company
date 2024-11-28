@@ -17,7 +17,7 @@ import InsecticidesAndPesticides from "../pages/servicesPage/components/Insectic
 import ArtificialInsemination from "../pages/servicesPage/components/ArtifificialInsemination";
 import GoatFertilizer from "../pages/servicesPage/components/GoatFertilizer";
 import GoatSterilization from "../pages/servicesPage/components/GoatSterilization";
-import Contact from "../contact/Contact";
+import Contact from "../pages/contact/Contact";
 
 const mainRoutes = [
   {

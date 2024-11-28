@@ -4,7 +4,8 @@ import { MdEmail } from "react-icons/md";
 import { BsMessenger } from "react-icons/bs";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { Box, IconButton, Typography } from "@mui/material";
-import backgroundImg from "../../assets/images/contact.jpeg";
+import backgroundImg from "../../../assets/images/contact.jpeg";
+import { motion } from "framer-motion";
 
 const ContactPage = () => {
   return (
@@ -12,11 +13,8 @@ const ContactPage = () => {
       <Box
         sx={{
           backgroundImage: `url(${backgroundImg})`,
-          padding: 4,
-          borderRadius: 2,
-          textAlign: "center",
-          maxWidth: "100%",
-          margin: "0 auto",
+          padding: "3rem 1rem",
+          width: "100%",
           mt: 6
         }}
       >
@@ -24,24 +22,25 @@ const ContactPage = () => {
           sx={{
             backgroundColor: "rgba(255, 255, 255, 0.6)", // White with transparency
             boxShadow: "2px 2px 10px rgba(0, 0, 0, 0.2)",
-            padding: "3rem"
+            padding: "2rem",
+            borderRadius: "1rem",
+            width: "100%"
           }}
         >
-          <Typography variant="h4" sx={{ fontWeight: "bold", color: "blue" }}>
+          <Typography
+            sx={{
+              fontWeight: "bold",
+              color: "blue",
+              fontSize: { xs: "1.5rem", md: "2rem" }
+            }}
+          >
             Raksirang Krishi and Pashu Firm Pvt. Ltd.:
           </Typography>
-          <Box sx={{ my: 3 }}>
-            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-              Company Name: <br />
-              <Typography variant="body3" sx={{ fontWeight: "normal" }}>
-                Raksirang Krishi and Pashu Firm Pvt. Ltd.
-              </Typography>
-            </Typography>
-          </Box>
+
           <Box sx={{ my: 3 }}>
             <Typography variant="h6" sx={{ fontWeight: "bold" }}>
               Address: <br />
-              <Typography variant="body3" sx={{ fontWeight: "normal" }}>
+              <Typography sx={{ fontSize: "1rem" }}>
                 Manahari-7, Ramantar, Mane Dada
               </Typography>
             </Typography>
@@ -49,15 +48,16 @@ const ContactPage = () => {
           <Box sx={{ my: 3 }}>
             <Typography variant="h6" sx={{ fontWeight: "bold" }}>
               Phone Number: <br />
-              <Typography variant="body3" sx={{ fontWeight: "normal" }}>
-                9855070362
-              </Typography>
+              <Typography sx={{ fontSize: "1rem" }}>9855070362</Typography>
             </Typography>
           </Box>
           <Box sx={{ my: 3 }}>
             <Typography variant="h6" sx={{ fontWeight: "bold" }}>
               Email Address: <br />
-              <Typography variant="body3" sx={{ fontWeight: "normal" }}>
+              <Typography
+                variant="h6"
+                sx={{ fontSize: "1rem", wordWrap: "break-word" }}
+              >
                 raksirangkrishiandpashufirm@gmail.com
               </Typography>
             </Typography>
@@ -67,10 +67,40 @@ const ContactPage = () => {
 
       <br />
 
-      {/* Moving Text Section */}
-      <Typography variant="h3" sx={{ fontWeight: "bold" }}>
-        You can visit our company through this Google Map.
-      </Typography>
+      <Box
+        sx={{
+          position: "relative",
+          width: "100%",
+          overflow: "hidden",
+          bgcolor: "#f5f5f5", // Background color for better visibility
+          py: 2, // Add some padding to the top and bottom
+          height: "80px"
+        }}
+      >
+        <motion.div
+          style={{
+            display: "inline-block",
+            whiteSpace: "nowrap",
+            position: "absolute"
+          }}
+          animate={{ x: ["100%", "-100%"] }} // Moves text from right to left
+          transition={{
+            duration: 10, // Adjust the duration for speed
+            ease: "linear", // Smooth continuous motion
+            repeat: Infinity // Infinite looping
+          }}
+        >
+          <Typography
+            sx={{
+              fontWeight: "bold",
+              color: "#333", // Text color
+              fontSize: { xs: "1.2rem", sm: "2rem" } // Responsive font size
+            }}
+          >
+            You can visit our company through this Google Map.
+          </Typography>
+        </motion.div>
+      </Box>
 
       <br />
 

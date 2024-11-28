@@ -9,13 +9,13 @@ const HomePage = () => {
     <Box
       component="header"
       sx={{
-        padding: "2rem 0",
+        padding: "2rem 1rem",
         display: "flex",
         gap: "2rem",
-        p: "3rem",
+
         mt: "3rem",
         flexDirection: { xs: "column-reverse", sm: "row" }, // Stack image above text on small screens, side-by-side on large
-        minHeight: "100vh",
+
         backgroundImage: `url(${backgroundImage})`, // Adding background image
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -26,30 +26,25 @@ const HomePage = () => {
       {/* Left Section (Text Section) */}
       <Box
         sx={{
-          width: "100", // Full width on small screens, 50% on large
+          width: "100%", // Full width on small screens, 50% on large
           position: "relative",
-          zIndex: 2,
           padding: "1.5rem", // Added padding to give space around the text
           backgroundColor: "rgba(255, 255, 255, 0.6)", // White with some transparency
-          // textAlign: { xs: "center", sm: "left" }, // Center text on small screens
-          p: 3,
-          m: 3
+          borderRadius: "1rem"
         }}
       >
         <Typography
-          variant="h4"
           sx={{
             color: "#34495e",
             marginBottom: "1rem",
-            fontSize: { xs: "1.5rem", sm: "1.75rem", md: "2rem" } // Responsive font size
+            fontSize: { xs: "1rem", sm: "1.75rem", md: "2rem" } // Responsive font size
           }}
         >
           #SustainableFarming
         </Typography>
         <Typography
-          variant="h1"
           sx={{
-            fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" }, // Responsive font size
+            fontSize: { xs: "1.5rem", md: "2rem" }, // Responsive font size
             margin: "1rem 0",
             color: "#2c3e50",
             fontWeight: "bold"

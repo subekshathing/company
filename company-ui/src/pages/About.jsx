@@ -65,26 +65,23 @@ const About = () => {
       >
         <Box
           sx={{
-            width: { xs: "80%", lg: "60%" }, // 40% of the full screen width
+            width: "100%", // 40% of the full screen width
             position: "relative",
-            zIndex: 2,
             padding: "1.5rem", // Padding around the text
             backgroundColor: "rgba(255, 255, 255, 0.6)", // White with transparency
-            textAlign: "left", // Align text to the left
-            margin: "0 auto", // Optional: center the box vertically
             boxShadow: "2px 2px 10px rgba(0, 0, 0, 0.2)", // Add a shadow for aesthetics
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center", // Center content vertically within the box
-            height: "100%" // Take full height of the parent container
+            textAlign: "center", // Center content vertically within the box
+            borderRadius: "1rem"
           }}
         >
           <Typography
             variant="h2"
             gutterBottom
             sx={{
-              fontSize: { xs: "1.8rem", sm: "2.5rem", md: "3rem", lg: "4rem" }, // Adjust font sizes for breakpoints
-              textAlign: { xs: "center", sm: "center" } // Center align on small screens, left align on larger screens
+              fontSize: "24px",
+              fontWeight: "bold"
             }}
           >
             About Us

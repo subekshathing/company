@@ -1,14 +1,62 @@
 import React from "react";
-import { Box, Typography, Button, Grid, Divider } from "@mui/material";
+import { Box, Typography, Button, Grid, Divider, Stack } from "@mui/material";
 import { Link } from "react-router-dom"; // Assuming you're using React Router for navigation
 import { motion } from "framer-motion";
-import { servicesList } from "../../../constants/general.costants";
+import VaccinesIcon from "@mui/icons-material/Vaccines";
+import PestControlIcon from "@mui/icons-material/PestControl";
+import treat from "../../../assets/images/treatment1.jpg";
+import insec from "../../../assets/images/insecticide.jpg";
+import Artificial from "../../../assets/images/insemination.jpg";
+import goatfer from "../../../assets/images/goatfert.jpg";
+import goatstr from "../../../assets/images/ster.jpg";
 
-const OurServicesCard = () => {
+const services = [
+  {
+    title: "Treatment of Livestocks",
+    description:
+      "Comprehensive healthcare services for livestock including vaccinations, deworming, and disease management.",
+    link: "/livestock-treatment",
+    icon: <VaccinesIcon />,
+    image: treat
+  },
+  {
+    title: "Insecticides or Pesticides",
+    description:
+      "Effective pest and insect management solutions to protect crops and livestock from harmful pests.",
+    link: "/insecticides-pesticides",
+    icon: <PestControlIcon />,
+    image: insec
+  },
+  {
+    title: "Artificial Insemination",
+    description:
+      "Expert artificial insemination services for improved breeding and genetic diversity.",
+    link: "/artificial-insemination",
+    icon: <VaccinesIcon />,
+    image: Artificial
+  },
+  {
+    title: "Goat Fertilizer",
+    description:
+      "High-quality organic goat fertilizer for enhancing soil fertility and crop growth.",
+    link: "/goat-fertilizer",
+    icon: <VaccinesIcon />,
+    image: goatfer
+  },
+  {
+    title: "Goat Sterilization",
+    description:
+      "High-quality organic goat fertilizer for enhancing soil fertility and crop growth.",
+    link: "/goat-sterilization",
+    icon: <VaccinesIcon />,
+    image: goatstr
+  }
+];
+
+const OurServices = () => {
   return (
     <Box
       sx={{
-        backgroundImage: `url('path_to_background_image/background.jpg')`, // Add the URL or path to the background image
         backgroundSize: "cover",
         backgroundPosition: "center",
         minHeight: "100vh",
@@ -25,7 +73,7 @@ const OurServicesCard = () => {
       </Typography>
       <Divider flexItem sx={{ my: "0.5rem", borderWidth: 1 }} />
       <Grid container spacing={3} justifyContent="center">
-        {servicesList.map((service, index) => (
+        {services.map((service, index) => (
           <Grid item xs={12} md={4} key={index}>
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -36,52 +84,74 @@ const OurServicesCard = () => {
                 sx={{
                   padding: "1.5rem",
                   borderRadius: "10px",
+                  height: "auto", // Adjusted height to fit content
+                  width: "100%",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
-                  backgroundImage: service.image,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  p: "1rem"
+                  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+                  backgroundColor: "#fff"
                 }}
               >
+                {/* Image Section */}
                 <Box
                   sx={{
-                    padding: "1rem", // Padding around the text
-                    borderRadius: "8px", // Rounded corners for text container
-                    backgroundColor: "rgba(255, 255, 255, 0.6)",
-                    height: "15rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "2rem"
+                    width: "100%",
+                    height: "150px",
+                    borderRadius: "10px",
+                    overflow: "hidden"
                   }}
                 >
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      borderRadius: "10px"
+                    }}
+                  />
+                </Box>
+
+                {/* Service Title & Icon */}
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  sx={{ marginTop: "1rem" }}
+                >
+                  {service.icon}
                   <Typography
                     variant="h5"
                     gutterBottom
-                    color="black" // White text color for contrast
-                    sx={{ fontWeight: "bold" }}
+                    color="black"
+                    sx={{ fontWeight: "bold", marginLeft: "0.5rem" }}
                   >
                     {service.title}
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      marginBottom: "1rem",
-                      color: "black" // White text color for description
-                    }}
-                  >
-                    {service.description}
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    color="success"
-                    component={Link}
-                    to={service.link}
-                  >
-                    Learn More
-                  </Button>
-                </Box>
+                </Stack>
+
+                {/* Service Description */}
+                <Typography
+                  variant="body2"
+                  sx={{
+                    marginBottom: "1rem",
+                    color: "black",
+                    textAlign: "justify"
+                  }}
+                >
+                  {service.description}
+                </Typography>
+
+                {/* Button */}
+                <Button
+                  variant="contained"
+                  color="success"
+                  component={Link}
+                  to={service.link}
+                >
+                  Learn More
+                </Button>
               </Box>
             </motion.div>
           </Grid>
@@ -91,4 +161,4 @@ const OurServicesCard = () => {
   );
 };
 
-export default OurServicesCard;
+export default OurServices;

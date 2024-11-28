@@ -1,9 +1,10 @@
 import React from "react";
 import FirstSectionHomePage from "./components/FirstSectionHomePage";
 // import OurProducts from "./components/OurProducts";
-import OurServices from "./components/SecondSection";
+
 import "../../../global.css";
 import OurProducts from "./components/OurProducts";
+import OurServices from "../servicesPage/components/services_list";
 
 const Home = () => {
   return (
