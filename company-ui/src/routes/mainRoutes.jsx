@@ -19,6 +19,7 @@ import GoatFertilizer from "../pages/servicesPage/components/GoatFertilizer";
 import GoatSterilization from "../pages/servicesPage/components/GoatSterilization";
 import Contact from "../pages/contact/Contact";
 import CropCultivation from "../pages/OurProduce/components/CropCultivation";
+import GoatFarming from "../pages/OurProduce/components/GoatFarming";
 
 const mainRoutes = [
   {
@@ -96,6 +97,10 @@ const mainRoutes = [
       {
         path: "crop-cultivation",
         element: <CropCultivation />
+      },
+      {
+        path: "goat-farming",
+        element: <GoatFarming />
       }
     ]
   }
