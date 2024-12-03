@@ -10,34 +10,39 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom"; // Assuming you're using React Router for navigation
 import { motion } from "framer-motion";
-import apple from "../../../assets/images/apple.jpg";
-import egg from "../../../assets/images/egg.jpg";
-import carrot from "../../../assets/images/carrot.jpg";
+import crop from "../../assets/images/crop.jpg";
+import goatfarm from "../../assets/images/goatfarm.jpg";
+import seedling from "../../assets/images/seedling.png";
 
-const OurProducts = () => {
+const OurProduce = () => {
   // src/data.js
   const products = [
     {
       id: 1,
-      name: "Organic Apples",
-      description: "Fresh and juicy organic apples.",
-      price: "$5.99",
-      image: apple
+      name: "Crop Cultivation",
+      description:
+        "We specialize in cultivating a variety of crops, including maize, millet, ginger, and more. Our focus is on sustainable farming practices to ensure high-quality produce that meets the needs of both farmers and consumers.",
+      image: crop,
+      link: "/crop-cultivation" // Add a link for each product
     },
     {
       id: 2,
-      name: "Farm Fresh Eggs",
-      description: "Cage-free farm fresh eggs.",
-      price: "$3.99",
-      image: egg
+      name: "Goat Farming",
+      description:
+        "We focus on raising goats for meat and breeding, prioritizing health, nutrition, and sustainable farming practices. Our methods ensure high productivity, offering quality meat while promoting eco-friendly growth and long-term success.",
+      image: goatfarm,
+      link: "/goat-farming" // Add a link for each product
     },
     {
       id: 3,
-      name: "Organic Carrots",
-      description: "Crunchy and sweet organic carrots.",
-      price: "$4.49",
-      image: carrot
+      name: "Seedling Production",
+      description:
+        "We produce high-quality seedlings for vegetables like tomatoes, onions, lentils, and more. Grown in a controlled nursery, our seedlings receive optimal care to ensure healthy growth before being transplanted into fields for better yields.",
+
+      image: seedling,
+      link: "/seedling-production" // Add a link for each product
     }
+
     // Add more products as needed
   ];
 
@@ -65,7 +70,7 @@ const OurProducts = () => {
             color: "#333"
           }}
         >
-          Our Products
+          Our Produce
         </Typography>
 
         {/* Subheading */}
@@ -86,6 +91,7 @@ const OurProducts = () => {
           Explore our wide range of organic fruits, vegetables, and livestock
           products. We prioritize quality and sustainability in every product.
         </Typography>
+
         {/* Product Grid */}
         <Grid container spacing={3}>
           {products.map((product) => (
@@ -109,17 +115,23 @@ const OurProducts = () => {
                   <Typography
                     variant="body2"
                     color="text.secondary"
-                    sx={{ marginBottom: "1rem" }}
+                    sx={{ marginBottom: "1rem", textAlign: "justify" }}
                   >
                     {product.description}
                   </Typography>
-                  <Typography
-                    variant="h6"
-                    color="primary"
-                    sx={{ fontWeight: "bold" }}
-                  >
-                    {product.price}
-                  </Typography>
+
+                  {/* Learn More Button */}
+                  <Box sx={{ textAlign: "center", marginTop: "1rem" }}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      component={Link}
+                      to={product.link}
+                      sx={{ fontSize: "1rem", padding: "0.8rem 2rem" }}
+                    >
+                      Learn More
+                    </Button>
+                  </Box>
                 </CardContent>
               </Card>
             </Grid>
@@ -135,7 +147,7 @@ const OurProducts = () => {
             to="/shop"
             sx={{ fontSize: "1rem", padding: "0.8rem 2rem" }}
           >
-            View More Products
+            View More Our Produces
           </Button>
         </Box>
       </Box>
@@ -143,4 +155,4 @@ const OurProducts = () => {
   );
 };
 
-export default OurProducts;
+export default OurProduce;

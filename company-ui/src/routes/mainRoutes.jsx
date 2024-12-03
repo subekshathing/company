@@ -18,6 +18,7 @@ import ArtificialInsemination from "../pages/servicesPage/components/Artifificia
 import GoatFertilizer from "../pages/servicesPage/components/GoatFertilizer";
 import GoatSterilization from "../pages/servicesPage/components/GoatSterilization";
 import Contact from "../pages/contact/Contact";
+import CropCultivation from "../pages/OurProduce/components/CropCultivation";
 
 const mainRoutes = [
   {
@@ -91,6 +92,10 @@ const mainRoutes = [
       {
         path: "goat-sterilization",
         element: <GoatSterilization />
+      },
+      {
+        path: "crop-cultivation",
+        element: <CropCultivation />
       }
     ]
   }
